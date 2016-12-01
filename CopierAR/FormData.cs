@@ -20,6 +20,17 @@
         public string CPwd = "";
         public string Email = "";
 
+        public RegistrationData() { }
+
+        public RegistrationData(string cname, string company, string cpwd, string email)
+        {
+            CID = -1;
+            CName = cname;
+            Company = company;
+            CPwd = cpwd;
+            Email = email;
+        }
+
         public void Clear()
         {
             CID = 0;

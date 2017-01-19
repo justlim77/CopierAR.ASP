@@ -21,7 +21,8 @@ namespace CopierAR
             get
             {
                 //return @"Data Source=SQL5028.SmarterASP.NET;Initial Catalog = DB_A12D5C_Copier; User Id = DB_A12D5C_Copier_admin; Password=Copier123;"; // Expired
-                return @"Data Source=SQL5021.SmarterASP.NET;Initial Catalog=DB_A16407_copierAR;User Id=DB_A16407_copierAR_admin;Password=Copier123;"; // Expires on March 07
+                //return @"Data Source=SQL5021.SmarterASP.NET;Initial Catalog=DB_A16407_copierAR;User Id=DB_A16407_copierAR_admin;Password=Copier123;"; // Expires on March 07
+                return @"Data Source=IOOSH30\SQLEXPRESS2014;Initial Catalog=DB_A12D5C_Copier;Persist Security Info=True;User Id=sa;Password=abcd1234;";
             }
         }
 

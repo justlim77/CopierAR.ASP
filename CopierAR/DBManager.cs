@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define TEST_DOMAIN
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -20,9 +22,28 @@ namespace CopierAR
         {
             get
             {
+#if TEST_DOMAIN
+                System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/magesdev-001-site1");
                 //return @"Data Source=SQL5028.SmarterASP.NET;Initial Catalog = DB_A12D5C_Copier; User Id = DB_A12D5C_Copier_admin; Password=Copier123;"; // Expired
                 //return @"Data Source=SQL5021.SmarterASP.NET;Initial Catalog=DB_A16407_copierAR;User Id=DB_A16407_copierAR_admin;Password=Copier123;"; // Expires on March 07
-                return @"Data Source=IOOSH30\SQLEXPRESS2014;Initial Catalog=DB_A12D5C_Copier;Persist Security Info=True;User Id=sa;Password=abcd1234;";
+#elif IOOSH_DOMAIN
+                System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/Copier");                
+                //return connString.ConnectionString;
+                //return @"Data Source=IOOSH30\SQLEXPRESS2014;Initial Catalog=DB_A12D5C_Copier;Persist Security Info=True;User Id=sa;Password=abcd1234;";
+
+#endif
+                System.Configuration.ConnectionStringSettings connString = null;
+                if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
+                {
+                    connString = rootWebConfig.ConnectionStrings.ConnectionStrings["DBConnectionString"];
+                    if (connString != null)
+                        Console.WriteLine("DB connection string = \"{0}\"",
+                            connString.ConnectionString);
+                    else
+                        Console.WriteLine("No DB connection string");
+                }
+
+                return connString.ConnectionString;
             }
         }
 
@@ -89,7 +110,7 @@ namespace CopierAR
             return string.Format("SELECT COUNT(*) FROM {0} WHERE {1}=@{1}", tableName, column);
         }
 
-        #region Tools
+#region Tools
         delegate bool ProcessDBEvent(ref SqlTransaction transaction);
         static bool ProcessDB(ProcessDBEvent dbEvent)
         {
@@ -121,9 +142,9 @@ namespace CopierAR
             Uninitialize();
             return result;
         }
-        #endregion
+#endregion
 
-        #region Registration
+#region Registration
         static void ReadRegistrationData(SqlDataReader reader, ref RegistrationData data)
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -271,9 +292,9 @@ namespace CopierAR
             return ProcessDB(dbEvent);
         }
 
-        #endregion
+#endregion
 
-        #region Sales Info
+#region Sales Info
         public static bool InsertSalesInfo(SalesInfoData infoData)
         {
             ProcessDBEvent dbEvent = delegate (ref SqlTransaction transaction)
@@ -309,9 +330,9 @@ namespace CopierAR
 
             return ProcessDB(dbEvent);
         }
-        #endregion
+#endregion
 
-        #region Postal Code
+#region Postal Code
         public static bool CheckPostalExists(string code)
         {
             bool exists = false;
@@ -437,9 +458,9 @@ namespace CopierAR
             ProcessDB(dbEvent);
             return data.ToArray();
         }
-        #endregion
+#endregion
 
-        #region Login
+#region Login
         public static bool CheckUserExists(string username)
         {
             bool exists = false;
@@ -475,6 +496,6 @@ namespace CopierAR
 
             return exists;
         }
-        #endregion
+#endregion
     }
 }

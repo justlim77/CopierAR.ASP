@@ -306,9 +306,9 @@ namespace CopierAR
                     command.Parameters.AddWithValue("SName", infoData.SName);                       // string
                     command.Parameters.AddWithValue("PostalCod", infoData.PostalCod);               // decimal
                     command.Parameters.AddWithValue("LoginTime", infoData.LoginTime);               // DateTime
-                    command.Parameters.AddWithValue("PhotoCopierModel", infoData.PhotoCopierModel); // csv string
-                    command.Parameters.AddWithValue("DemoDuration", infoData.DemoDuration);         // string
-                    command.Parameters.AddWithValue("Frequency", infoData.Frequency);               // csv string
+                    command.Parameters.AddWithValue("PhotoCopierModel", infoData.PhotoCopierModel); // string
+                    command.Parameters.AddWithValue("DemoDuration", infoData.DemoDuration);         // DateTime
+                    command.Parameters.AddWithValue("Frequency", infoData.Frequency);               // int
 
                     bool result = false;
                     try

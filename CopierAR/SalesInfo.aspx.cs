@@ -30,8 +30,8 @@ namespace CopierAR
                 decimal PostalCod = Convert.ToDecimal(Request.Form["PostalCod"]);
                 DateTime? LoginTime = Convert.ToDateTime(Request.Form["LoginTime"]);
                 string PhotoCopierModel = Request.Form["PhotoCopierModel"];
-                string DemoDuration = Request.Form["DemoDuration"];
-                string Frequency = Request.Form["Frequency"];
+                DateTime? DemoDuration = Convert.ToDateTime(Request.Form["DemoDuration"]);
+                int Frequency = Convert.ToInt32(Request.Form["Frequency"]);
 
                 SalesInfoData data = new SalesInfoData();
                 data.SName = SName;
